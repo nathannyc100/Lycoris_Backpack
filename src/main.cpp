@@ -1,18 +1,20 @@
 #include <Arduino.h>
 
-// put function declarations here:
-int myFunction(int, int);
+TinyStepper_28BYJ_48 stepper;
+const int buttonPin = 1;
 
 void setup() {
-  // put your setup code here, to run once:
-  int result = myFunction(2, 3);
+  pinMode(buttonPin, INPUT)
+  stepper.connectToPins(3, 4, 5, 6)
 }
 
 void loop() {
-  // put your main code here, to run repeatedly:
-}
-
-// put function definitions here:
-int myFunction(int x, int y) {
-  return x + y;
+  int reading = digitalRead(buttonPin)
+  if (reading == HIGH){
+    delay(1000)
+    stepper.moveRelativeInSteps(500)
+    delay(2000)
+    stepper.moveRelativeInSteps(-500)
+  }
+  delay(1000)
 }
